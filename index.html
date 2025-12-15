@@ -1,0 +1,165 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <title>OSINT Search | Data Leak Monitor KZ</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <style>
+        body {
+            font-family: Inter, Arial, sans-serif;
+            background: #0f172a;
+            color: #e5e7eb;
+            margin: 0;
+            padding: 40px;
+        }
+        h1, h2 {
+            color: #38bdf8;
+        }
+        .container {
+            max-width: 900px;
+            margin: auto;
+        }
+        .card {
+            background: #020617;
+            border-radius: 12px;
+            padding: 24px;
+            margin-bottom: 24px;
+            box-shadow: 0 0 0 1px #1e293b;
+        }
+        input, button {
+            width: 100%;
+            padding: 14px;
+            margin-top: 12px;
+            border-radius: 8px;
+            border: none;
+            font-size: 15px;
+        }
+        input {
+            background: #020617;
+            color: #e5e7eb;
+            border: 1px solid #1e293b;
+        }
+        button {
+            background: #38bdf8;
+            color: #020617;
+            font-weight: 600;
+            cursor: pointer;
+        }
+        button:hover {
+            background: #0ea5e9;
+        }
+        .result {
+            background: #020617;
+            border-left: 4px solid #22c55e;
+            padding: 12px;
+            margin-top: 12px;
+            font-size: 14px;
+        }
+        .warning {
+            border-left: 4px solid #facc15;
+        }
+        .danger {
+            border-left: 4px solid #ef4444;
+        }
+        footer {
+            margin-top: 40px;
+            font-size: 13px;
+            color: #94a3b8;
+        }
+    </style>
+</head>
+<body>
+
+<div class="container">
+
+    <h1>OSINT Data Leak Monitor (KZ)</h1>
+    <p>
+        Учебная система поиска по публичным утечкам данных,
+        основанная на открытых источниках (OSINT).
+    </p>
+
+    <div class="card">
+        <h2>Поиск по публичным утечкам</h2>
+        <p>
+            Введите ключевое слово (например: домен компании,
+            название сервиса, email-шаблон).
+        </p>
+        <input type="text" id="query" placeholder="example.kz">
+        <button onclick="search()">Найти</button>
+
+        <div id="results"></div>
+    </div>
+
+    <div class="card">
+        <h2>Архитектура проекта</h2>
+        <ul>
+            <li>📦 База данных: Elasticsearch / PostgreSQL (Full-Text Search)</li>
+            <li>🔎 Индексация: публичные датасеты утечек (Have I Been Pwned, GitHub, форумы)</li>
+            <li>🤖 Telegram Bot: aiogram / pyTelegramBotAPI</li>
+            <li>🌐 Frontend: HTML + JS (демо-интерфейс)</li>
+            <li>🛡️ Фильтрация: исключение ИИН, телефонов, ПДн</li>
+        </ul>
+    </div>
+
+    <div class="card warning">
+        <h2>Юридическое ограничение</h2>
+        <p>
+            Система предназначена <strong>исключительно для анализа
+            информационной безопасности</strong>.
+            Используются только открытые источники и обезличенные данные.
+        </p>
+        <p>
+            Поиск персональных данных (ИИН, паспорт, адрес, телефон)
+            <strong>запрещён</strong>.
+        </p>
+    </div>
+
+    <div class="card">
+        <h2>Telegram-бот (логика)</h2>
+        <pre>
+/start — информация о боте
+/search example.kz — поиск по публичным утечкам
+/help — правила использования
+        </pre>
+    </div>
+
+    <footer>
+        © Учебный проект | OSINT & Cybersecurity | Республика Казахстан
+    </footer>
+
+</div>
+
+<script>
+    function search() {
+        const query = document.getElementById("query").value.trim();
+        const results = document.getElementById("results");
+    
+        results.innerHTML = "";
+    
+        if (query.length < 2) {
+            results.innerHTML = `
+                <div class="result danger">
+                    Запрос слишком короткий. Введите минимум 2 символа.
+                </div>
+            `;
+            return;
+        }
+    
+        // Имитация ответа поискового движка (Elasticsearch / Full-Text SQL)
+        results.innerHTML = `
+            <div class="result">
+                🔍 Поисковый запрос: <strong>${query}</strong><br><br>
+    
+                📄 Источник: Public OSINT Leak Dataset<br>
+                🏷️ Тип данных: Email / Login / Password Hash<br>
+                🌍 Регион: Казахстан (KZ)<br>
+                🗓️ Дата обнаружения: 2023–2024<br>
+                📊 Совпадений: ${Math.floor(Math.random() * 500 + 1)}<br><br>
+    
+                ⚠️ Все данные обезличены и предназначены
+                исключительно для анализа угроз ИБ.
+            </div>
+        `;
+    }
+    </script>
+    
